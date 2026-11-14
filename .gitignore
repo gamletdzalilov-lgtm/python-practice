@@ -1,0 +1,9 @@
+# Системные файлы macOS
+.DS_Store
+
+# Кэш Python
+__pycache__/
+
+# Данные, которые создаёт программа
+cart.json
+empty_cart.json
