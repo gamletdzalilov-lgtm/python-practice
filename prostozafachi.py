@@ -138,7 +138,7 @@ empty_cart.save_to_json("empty_cart.json")
 restored_empty = ShoppingCart.load_from_json("empty_cart.json")
 
 print(restored_empty.get_total_price())  # 0
-print(len(restored_empty.products))      # 0
+
 
 
             
