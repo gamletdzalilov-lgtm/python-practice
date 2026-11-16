@@ -20,7 +20,11 @@ def load_settings(path):
             
 
 
-    
+    if len(result['currency'].strip())==0:
+        print('Неправильное значение currency')
+        result['currency'] = DEFAULT_SETTINGS['currency']
+        return result
+
 
     
     if not isinstance(result['discount'], int) or isinstance(result['discount'], bool) or result['discount'] < 0 or result['discount'] > 100:
@@ -33,7 +37,7 @@ def load_settings(path):
 
     
 test_files = {
-    "s_ok.json": '{"currency": "EUR", "discount": 15}',
+    "s_ok.json": '{"currency": "", "discount": 10}',
     "s_broken.json": '{"currency": "EUR",',
     "s_list.json": '["EUR", 15]',
     "s_partial.json": '{"currency": "EUR"}',
