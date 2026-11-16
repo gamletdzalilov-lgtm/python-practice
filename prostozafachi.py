@@ -81,7 +81,7 @@ def load_products(filename):
         with open(filename,'r',encoding="utf-8") as file:
             data=json.load(file)
     except FileNotFoundError:
-        print('Файл не найдем')        
+        print('Файл не найден')        
         return []
     except json.JSONDecodeError as error:
         print(f"повреждённый JSON: строка {error.lineno}, столбец {error.colno}: {error.msg}")
