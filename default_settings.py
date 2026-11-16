@@ -20,10 +20,9 @@ def load_settings(path):
             
 
 
-    if len(result['currency'].strip())==0:
+    if not isinstance(result['currency'],str) or len(result['currency'].strip())==0:
         print('Неправильное значение currency')
         result['currency'] = DEFAULT_SETTINGS['currency']
-        return result
 
 
     
