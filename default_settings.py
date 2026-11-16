@@ -37,11 +37,12 @@ def load_settings(path):
 
     
 test_files = {
-    "s_ok.json": '{"currency": "", "discount": 10}',
+    "s_ok.json": '{"currency": "EUR", "discount": 15}',
     "s_broken.json": '{"currency": "EUR",',
     "s_list.json": '["EUR", 15]',
     "s_partial.json": '{"currency": "EUR"}',
     "s_bad.json": '{"currency": "EUR", "discount": 150}',
+        "s_empty_currency.json": '{"currency": "", "discount": 10}', 
 }
 for name, text in test_files.items():
     with open(name, "w", encoding="utf-8") as f:
