@@ -85,7 +85,8 @@ def load_products(filename):
         print ('data должен быть словарем')
         return []
     if "products" not in data:
-        return "неверная структура: нет ключа 'products'"
+        print(f'неверная структура: нет ключа products в файле {filename}')
+        return []
     if not isinstance(data["products"], list):
         return "неверная структура: 'products' должен быть списком"     
     for i in data:
