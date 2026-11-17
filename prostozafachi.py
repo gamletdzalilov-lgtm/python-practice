@@ -16,6 +16,7 @@ class ShoppingCart:
             f.write('Чек \n')
             for i in self.products:
                 f.write(f'{i} \n')
+            f.write(f'Товаров: {len(self.products)}\n')    
             f.write(f'Итого: {self.get_total_price()} руб.')    
     def __str__(self):
         return f'Корзина: товаров — {len(self.products)}, сумма — {self.get_total_price()} руб. ' 
@@ -58,19 +59,13 @@ class Product:
         q['price']=self.price
         return q
     @classmethod
-    def from_dict(cls,data):
-        for i in data:
-            for j in i:
+    def from_dict(cls, data):
+        if not isinstance(data, dict):
+                raise ValueError("Ожидается словарь с данными товара")
+        if "name" not in data or "price" not in data:
+            raise ValueError("В словаре отсутствуют ключи 'name' или 'price'")
+        return cls(data["name"], data["price"])
 
-                if not isinstance(i,dict):
-                    print(f'Для {'i'} Нужен словарь')
-                    continue
-                if i!=(name,price):
-                    continue
-
-
-            name,price=(data['name'],data['price'])
-        return cls(name, price)
 def save_product(product,filename):
     product=product.to_dict()
     with open(filename,'w',encoding="utf-8") as file:
@@ -117,27 +112,33 @@ def input_product():
         else:
             return q  
 
+# 1. Создаём корзину и добавляем товары
 cart = ShoppingCart()
 cart.add_product(Product("Клавиатура", 3500))
 cart.add_product(Product("Мышь", 1500))
-cart.add_product(Product("Мышь", 1500))
+assert cart.get_total_price() == 5000
 
-cart.save_to_json("cart.json")
+# 2. Проверяем сохранение чека (save_receipt)
+cart.save_receipt("receipt.txt")
+with open("receipt.txt", "r", encoding="utf-8") as f:
+    receipt_text = f.read()
 
-restored_cart = ShoppingCart.load_from_json("cart.json")
+assert "Клавиатура" in receipt_text
+assert "Товаров: 2" in receipt_text
+assert "Итого: 5000 руб." in receipt_text
 
-print(restored_cart.get_total_price())  # 6500
-print(len(restored_cart.products))      # 3
-
-for product in restored_cart.products:
-    print(product)
-
+# 3. Проверяем пустую корзину и её чек
 empty_cart = ShoppingCart()
-empty_cart.save_to_json("empty_cart.json")
+empty_cart.save_receipt("empty_receipt.txt")
+with open("empty_receipt.txt", "r", encoding="utf-8") as f:
+    assert "Итого: 0 руб." in f.read()
 
-restored_empty = ShoppingCart.load_from_json("empty_cart.json")
+# 4. Проверяем сохранение и загрузку JSON
+cart.save_to_json("cart.json")
+restored_cart = ShoppingCart.load_from_json("cart.json")
+assert restored_cart.get_total_price() == 5000
 
-print(restored_empty.get_total_price())  # 0
+print("Все проверки прошли успешно!")
 
 
 
