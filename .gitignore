@@ -8,3 +8,6 @@ __pycache__/
 # Данные, которые создаёт программа
 *cart.json
 s_*.json
+
+receipt.txt
+empty_receipt.txt
