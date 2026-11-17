@@ -6,7 +6,7 @@ def load_settings(path):
         with open (path,'r', encoding='utf-8') as file:
             data=json.load(file)
     except FileNotFoundError:
-        print(f'Нет файла')
+        print(f'Нет файла {path} ')
         return result 
     except json.JSONDecodeError as error:
         print(f"повреждённый JSON: строка {error.lineno}, столбец {error.colno}: {error.msg}")
