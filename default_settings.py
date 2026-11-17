@@ -41,7 +41,9 @@ test_files = {
     "s_list.json": '["EUR", 15]',
     "s_partial.json": '{"currency": "EUR"}',
     "s_bad.json": '{"currency": "EUR", "discount": 150}',
-        "s_empty_currency.json": '{"currency": "", "discount": 10}', 
+    "s_empty_currency.json": '{"currency": "", "discount": 10}',
+    "s_currency_and_discount.json":  '{"currency": "", "discount": 150}',
+    "s_currency_number.json":'{"currency": 123}'
 }
 for name, text in test_files.items():
     with open(name, "w", encoding="utf-8") as f:
