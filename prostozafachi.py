@@ -85,19 +85,35 @@ def load_products(filename):
         print ('data должен быть словарем')
         return []
     if "products" not in data:
+
         print(f'неверная структура: нет ключа products в файле {filename}')
         return []
     if not isinstance(data["products"], list):
-        return "неверная структура: 'products' должен быть списком"     
-    for i in data:
-            for j in i:
+        print( "неверная структура: 'products' должен быть списком")
+        return []
+    products=[]
+    skipped=[]
+    for item in data['products']:
+        if not isinstance(item,dict): 
+            skipped.append(f'{item} не словарь')
+            continue
+        missing=[]
+        for key in ('name','price'):
+            if key not in item:
+                missing.append(key)
+        if len(missing)!=0:
+            skipped.append(f'Нет ключей: {", ".join(missing)}')
+            continue
 
-                if not isinstance(i,dict):
-                    print(f'Для {'i'} Нужен словарь')
-                    continue
-                if i!=('name','price'):
-                    continue
-            data.append((data['name'],data['price']))    
+        try:
+            product = Product.from_dict(item)
+            products.append(product)
+        except ValueError as error:
+            skipped.append(f'Ошибка валидации для {item}: {error}')  
+    print(f'Загружено: {len(products)}, пропущено: {len(skipped)}')   
+    for skip in skipped:
+            print(f" - {skip}")        
+    return products
             
 
     
@@ -138,7 +154,8 @@ with open("empty_receipt.txt", "r", encoding="utf-8") as f:
 cart.save_to_json("cart.json")
 restored_cart = ShoppingCart.load_from_json("cart.json")
 assert restored_cart.get_total_price() == 5000
-
+assert len(load_products("products.json")) == 2
+assert load_products("нет_такого_файла.json") == []
 print("Все проверки прошли успешно!")
 
 

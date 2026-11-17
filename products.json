@@ -1,0 +1,10 @@
+{"products": [
+    {"name": "Чай", "price": 100},
+    {"name": "Кофе", "price": 250.5},
+    {"name": "", "price": 50},
+    {"name": "Сахар", "price": -5},
+    {"name": "Соль"},
+    {},
+    "Хлеб",
+    {"name": "Мёд", "price": true}
+]}
