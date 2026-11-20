@@ -11,3 +11,4 @@ s_*.json
 
 receipt.txt
 empty_receipt.txt
+*.db
