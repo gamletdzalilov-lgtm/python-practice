@@ -7,27 +7,33 @@
 1. Скачать проект:
 
 ```bash
-<команда клонирования>
-<переход в папку>
+<git clone https://github.com/gamletdzalilov-lgtm/python-practice.git>
+ 
+
+<cd python-practice>
+
 ```
 
 2. Создать и активировать виртуальное окружение:
 
 ```bash
-<создание окружения>
-<активация>
+<python3 -m venv .venv>
+ 
+<source .venv/bin/activate>
+
 ```
 
 3. Установить зависимости:
 
 ```bash
-<установка из requirements.txt>
+<pip install -r requirements.txt>
+
 ```
 
 4. Запустить проверки:
 
 ```bash
-<запуск prostozafachi.py>
+<python3 prostozafachi.py>
 ```
 
 Если всё в порядке, выведется «Все проверки прошли успешно!».
